@@ -1,65 +1,35 @@
-'use client';
+"use client";
 
 import { useAuth } from "@/contexts/auth-context";
 import { useRouter } from "next/navigation";
-import { FormEvent, useState } from "react";
+import { useEffect } from 'react';
+import Image from 'next/image';
+import LoginForm from "./login-form";
+import PageSpinner from "@/components/page-spinner";
 
-interface LoginFormState {
-  username: string;
-  password: string;
-}
 
 export default function Login() {
   const router = useRouter();
-  const { login } = useAuth();
-  const [formState, setFormState] = useState<LoginFormState>({
-    username: "",
-    password: "",
-  });
+  const { isLoading, isAuthenticated } = useAuth();
 
-  const onChange = (event: FormEvent<HTMLInputElement>) => {
-    const { name, value } = event.currentTarget;
-    setFormState({...formState, [name]: value});
-  }
-
-  const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
-    // prevent form routing
-    event.preventDefault();
-
-    const response = await fetch('/api/login', {
-      method: 'POST',
-      body: JSON.stringify(formState), // `formState` mirrors the structure the endpoint expects
-    });
-
-    if (response.status === 200) {
-      const json = await response.json();
-      const token = json.token;
-      if (login(token)) {
-        router.push('/profile');
-      } 
-    } else if (response.status === 401) {
-      console.log('wrong password and username');
-    } else if (response.status === 400) {
-      console.log('smth went wrong');
+  useEffect(() => {
+    if (!isLoading && isAuthenticated) {
+      router.replace('/profile');
     }
+  }, [isLoading, isAuthenticated]);
+
+  if (isLoading || isAuthenticated) {
+    return (
+      <PageSpinner/>
+    )
   }
 
   return (
-    <>
-      <h1>login page :_)</h1>
-      <form onSubmit={onSubmit}>
-        <label>
-          Username:
-        <input type="text" name="username" onChange={onChange} value={formState.username}/>
-        </label>
-        <label>
-          Password:
-        <input type="password" name="password" onChange={onChange} value={formState.password}/>
-        </label>
-        <button type="submit">
-          Login
-        </button>
-      </form>
-    </>
-  )
+    <div className="h-screen flex flex-col justify-end sm:justify-center items-center px-2 pb-12"> 
+      <div className="flex flex-col items-center bg-white py-12 lg:px-8 px-6 rounded-lg shadow-lg ring-2 ring-inset ring-gray-300 w-full max-w-xs">
+        <Image src="/connexin-logo.png" alt="Connexin Logo" width="200" height="70" />
+        <LoginForm/>
+      </div>
+    </div>
+  );
 }
