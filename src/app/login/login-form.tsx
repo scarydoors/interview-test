@@ -1,8 +1,8 @@
 import Button from "@/components/button";
 import Input from "@/components/input";
 import { FormEvent, useState } from "react";
-import { useAuth } from '@/contexts/auth-context';
-import { useRouter } from 'next/navigation';
+import { useAuth } from "@/contexts/auth-context";
+import { useRouter } from "next/navigation";
 
 interface LoginFormState {
   username: string;
@@ -50,17 +50,26 @@ export default function LoginForm() {
 
   return (
     <form onSubmit={onSubmit} className="pt-12 space-y-6 w-full">
-      <Input type="text" label="Username" name="username" onChange={onChange} value={formState.username} error={hasErrors} />
-      <Input type="password" label="Password" name="password" onChange={onChange} value={formState.password} error={hasErrors}/>
-      {hasErrors ?
-        (
-          <div className="text-red text-sm">
-            {errorMessage}
-          </div>
-        ):
-        null
-      }
+      <Input
+        type="text"
+        label="Username"
+        name="username"
+        onChange={onChange}
+        value={formState.username}
+        error={hasErrors}
+      />
+      <Input
+        type="password"
+        label="Password"
+        name="password"
+        onChange={onChange}
+        value={formState.password}
+        error={hasErrors}
+      />
+      {hasErrors ? (
+        <div className="text-red text-sm">{errorMessage}</div>
+      ) : null}
       <Button>Login</Button>
     </form>
-  )
+  );
 }

@@ -14,9 +14,7 @@ export default function NeedAuth({ children }: { children: React.ReactNode }) {
   }, [isLoading, isAuthenticated]);
 
   if (isLoading || !isAuthenticated) {
-    return (
-      <PageSpinner/>
-    );
+    return <PageSpinner />;
   }
 
   return <>{children}</>;
