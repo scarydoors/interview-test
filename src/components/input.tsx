@@ -14,9 +14,9 @@ export default function Input({
   type,
   name,
   label,
-  value = undefined,
+  value,
+  onChange, 
   error = false,
-  onChange = undefined,
 }: InputProps) {
   return (
     <label className="block text-sm font-medium leading-6 text-gray-900">

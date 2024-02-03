@@ -17,8 +17,8 @@ export default function LoginForm() {
     password: "",
   });
 
-  const [errorMessage, setErrorMessage] = useState<string>("");
-  const hasErrors = errorMessage.length !== 0;
+  const [errorMessage, setErrorMessage] = useState<string | undefined>();
+  const hasErrors = errorMessage !== undefined && errorMessage.length !== 0;
 
   const onChange = (event: FormEvent<HTMLInputElement>) => {
     const { name, value } = event.currentTarget;
