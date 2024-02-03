@@ -9,20 +9,22 @@ import ProfileInfo from "./profile-info";
 
 // TODO: probably should move this into its own file
 export type ProfileResponse = {
-  email: string,
-  firstName: string,
-  lastName: string,
-}
+  email: string;
+  firstName: string;
+  lastName: string;
+};
 
 async function getProfile(token: string): Promise<ProfileResponse> {
   const response = await fetch("/api/profile", {
     method: "POST",
-    body: JSON.stringify({token}),
+    body: JSON.stringify({ token }),
   });
   if (response.status === 401) {
     return Promise.reject("You are unauthorized. Please login again.");
   } else if (response.status === 400) {
-    return Promise.reject("Something went wrong. Please refresh the page to retry.");
+    return Promise.reject(
+      "Something went wrong. Please refresh the page to retry.",
+    );
   }
   return response.json();
 }
@@ -33,9 +35,11 @@ export default function Profile() {
 
   useEffect(() => {
     if (!profile && token) {
-      getProfile(token).then((profile) => {
-        setProfile(profile);
-      }).catch((reason) => {
+      getProfile(token)
+        .then((profile) => {
+          setProfile(profile);
+        })
+        .catch((reason) => {
           setError(reason);
         });
     }
@@ -48,7 +52,7 @@ export default function Profile() {
           <h1 className="text-2xl font-semibold">Profile</h1>
           <ProfileInfo profile={profile} errorMessage={error} />
           <Button onClick={() => logout()}>Logout</Button>
-      </Container>
+        </Container>
       </div>
     </NeedAuth>
   );

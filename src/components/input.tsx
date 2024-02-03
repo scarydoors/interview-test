@@ -15,7 +15,7 @@ export default function Input({
   name,
   label,
   value,
-  onChange, 
+  onChange,
   error = false,
 }: InputProps) {
   return (

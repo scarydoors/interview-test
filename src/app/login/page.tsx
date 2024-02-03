@@ -32,7 +32,7 @@ export default function Login() {
           height="70"
         />
         <LoginForm />
-        </Container>
+      </Container>
     </div>
   );
 }
