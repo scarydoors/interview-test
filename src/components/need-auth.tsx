@@ -11,7 +11,7 @@ export default function NeedAuth({ children }: { children: React.ReactNode }) {
     if (!isLoading && !isAuthenticated) {
       router.replace("/login");
     }
-  }, [isLoading, isAuthenticated]);
+  }, [isLoading, isAuthenticated, router]);
 
   if (isLoading || !isAuthenticated) {
     return <PageSpinner />;

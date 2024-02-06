@@ -43,7 +43,7 @@ export default function Profile() {
           setError(reason);
         });
     }
-  }, [token]);
+  }, [token, profile]);
 
   return (
     <NeedAuth>

@@ -16,7 +16,7 @@ export default function Login() {
     if (!isLoading && isAuthenticated) {
       router.replace("/profile");
     }
-  }, [isLoading, isAuthenticated]);
+  }, [isLoading, isAuthenticated, router]);
 
   if (isLoading || isAuthenticated) {
     return <PageSpinner />;
