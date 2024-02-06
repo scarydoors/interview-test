@@ -4,7 +4,7 @@ import { FormEvent, useState } from "react";
 import { useAuth } from "@/contexts/auth-context";
 import { useRouter } from "next/navigation";
 
-interface LoginFormState {
+type LoginFormState = {
   username: string;
   password: string;
 }
